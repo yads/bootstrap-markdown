@@ -441,7 +441,7 @@
         this.__setEventListeners();
 
         // Set editor attributes, data short-hand API and listener
-        this.$editor.attr('id', (new Date()).getTime());
+        this.$editor.attr('id', 'md-' + new Date().getTime());
         this.$editor.on('click', '[data-provider="bootstrap-markdown"]', $.proxy(this.__handle, this));
 
         if (this.$element.is(':disabled') || this.$element.is('[readonly]')) {
