@@ -1,9 +1,12 @@
 /**
- * Bootstrap-Markdown.less
+ * Bootstrap-Markdown.scss
  *
  * @author Taufan Aditya @taufanaditya
  * @copyright 2013-2016 Taufan Aditya
  */
+
+$enable-shadows: false;
+@import "../node_modules/bootstrap/scss/mixins/box-shadow";
 
 $table-border-color: #ddd;
 $panel-default-heading-bg: #f5f5f5;

@@ -106,7 +106,7 @@
           var z,
             buttons = btnGroups[y].data,
             btnGroupContainer = $('<div/>', {
-              'class': 'btn-group'
+              'class': 'btn-group mr-2'
             });
 
           for (z = 0; z < buttons.length; z++) {
@@ -122,9 +122,9 @@
 
             // Construct the button object
             buttonContainer = $('<button></button>');
-            buttonContainer.text(' ' + this.__localize(btnText)).addClass('btn-default btn-sm').addClass(btnClass);
-            if (btnClass.match(/btn\-(primary|success|info|warning|danger|link)/)) {
-              buttonContainer.removeClass('btn-default');
+            buttonContainer.text(' ' + this.__localize(btnText)).addClass('btn-secondary btn-sm').addClass(btnClass);
+            if (btnClass.match(/btn(|-outline)-(primary|success|info|warning|danger|light|dark)/)) {
+              buttonContainer.removeClass('btn-secondary');
             }
             buttonContainer.attr({
               'type': 'button',
@@ -1025,7 +1025,7 @@
     width: 'inherit',
     height: 'inherit',
     resize: 'none',
-    iconlibrary: 'glyph',
+    iconlibrary: 'fa-5',
     language: 'en',
     initialstate: 'editor',
     parser: null,
