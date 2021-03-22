@@ -8,6 +8,7 @@ Demo and documentation available at [http://toopay.github.io/bootstrap-markdown/
 
 | Version | Compatibility |
 | :---: | :---: |
+| v3.x | **only** Bootstrap 4.x |
 | v2.x | **only** Bootstrap 3.x |
 | v1.x | **only** Bootstrap 2.x |
 
