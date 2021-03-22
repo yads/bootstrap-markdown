@@ -113,7 +113,6 @@
             var button = buttons[z],
               buttonContainer, buttonIconContainer,
               buttonHandler = ns + '-' + button.name,
-              buttonIcon = this.__getIcon(button),
               btnText = button.btnText ? button.btnText : '',
               btnClass = button.btnClass ? button.btnClass : 'btn',
               tabIndex = button.tabIndex ? button.tabIndex : '-1',
@@ -137,8 +136,8 @@
             if (button.toggle === true) {
               buttonContainer.attr('data-toggle', 'button');
             }
-            buttonIconContainer = $('<span/>');
-            buttonIconContainer.addClass(buttonIcon);
+
+            buttonIconContainer = this.__createIcon(button);
             buttonIconContainer.prependTo(buttonContainer);
 
             // Attach the button object
@@ -221,6 +220,22 @@
         return messages[language][string];
       }
       return string;
+    },
+    __createIcon(button) {
+      var buttonIconContainer,
+        buttonIcon;
+
+      buttonIcon = this.__getIcon(button);
+
+      if (typeof buttonIcon === 'string') {
+        buttonIconContainer = $('<span/>');
+        buttonIconContainer.addClass(buttonIcon);
+      } else if (typeof buttonIcon === 'function') {
+        buttonIconContainer = $(buttonIcon(button));
+      } else {
+        buttonIconContainer = $(buttonIcon);
+      }
+      return buttonIconContainer;
     },
     __getIcon: function(src) {
       if(typeof src == 'object'){
@@ -316,7 +331,11 @@
         }
 
         if (options.fullscreen.enable) {
-          editorHeader.append('<div class="md-controls"><a class="md-control md-control-fullscreen" href="#"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOn) + '"></span></a></div>').on('click', '.md-control-fullscreen', function(e) {
+          var fullscreenIcon = this.__createIcon(options.fullscreen.icons.fullscreenOn);
+          var fullscreen = $('<a class="md-control md-control-fullscreen" href="#"></a>');
+          var fullscreenContainer = $('<div class="md-controls"></div>');
+          fullscreen.append(fullscreenIcon);
+          editorHeader.append(fullscreenContainer).on('click', '.md-control-fullscreen', function(e) {
             e.preventDefault();
             instance.setFullscreen(true);
           });
@@ -459,10 +478,11 @@
       }
 
       if (options.fullscreen.enable && options.fullscreen !== false) {
-        this.$editor.append('<div class="md-fullscreen-controls">' +
-          '<a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOff) + '">' +
-          '</span></a>' +
-          '</div>');
+        var exitFullscreenIcon = this.__createIcon(options.fullscreen.icons.fullscreenOff);
+        var exitFullscreen = $('<a href="#" class="exit-fullscreen" title="Exit fullscreen"></a>');
+        var exitFullscreenContainer = $('<div class="md-fullscreen-controls"></div>');
+        fullscreen.append(fullscreenIcon);
+        this.$editor.append(exitFullscreenContainer);
         this.$editor.on('click', '.exit-fullscreen', function(e) {
           e.preventDefault();
           instance.setFullscreen(false);
